@@ -1,6 +1,7 @@
 from django.urls import path, include
 from . import views_fbv
 from . import views_cbv
+from . import views_api_dj
 
 fbv_urlpatterns = [
     path("", views_fbv.post_list),
@@ -21,7 +22,13 @@ cbv_urlpatterns = [
     path("<int:pk>/delete/", views_cbv.post_delete),
 ]
 
+django_api_urlpatterns = [
+    path("", views_api_dj.post_list),
+    path("<int:pk>/", views_api_dj.post_detail),
+]
+
 urlpatterns = [
     path("", include(fbv_urlpatterns)),
     path("cbv/", include(cbv_urlpatterns)),
+    path("api/dj/", include(django_api_urlpatterns)),
 ]

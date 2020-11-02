@@ -9,8 +9,8 @@ fbv_urlpatterns = [
     path("<int:pk>/edit/", views_fbv.post_edit),
     path("<int:pk>/delete/", views_fbv.post_delete),
     path("<int:post_pk>/comments/new/", views_fbv.comment_new),
-    path("<int:post_pk>/comments/edit/", views_fbv.comment_edit),
-    path("<int:post_pk>/comments/delete/", views_fbv.comment_delete),
+    path("<int:post_pk>/comments/<int:pk>/edit/", views_fbv.comment_edit),
+    path("<int:post_pk>/comments/<int:pk>/delete/", views_fbv.comment_delete),
 ]
 
 cbv_urlpatterns = [

@@ -1,6 +1,6 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Post
+from .models import Post, Comment
 from .forms import PostForm, PostEditForm, CommentForm
 
 
@@ -85,8 +85,19 @@ def comment_new(request, post_pk):
     return render(request, "blog/comment_form.html", {"form": form})
 
 
-def comment_edit(request, post_pk):
-    pass
+def comment_edit(request, post_pk, pk):
+    comment = get_object_or_404(Comment, pk=pk)
 
-def comment_delete(request, post_pk):
+    if request.method == "POST":
+        form = CommentForm(request.POST, request.FILES, instance=comment)
+        if form.is_valid():
+            form.save()
+            return redirect(f"/blog/{post_pk}")  # TODO: URL Reverse
+    else:  # GET 요청
+        form = CommentForm(instance=comment)
+
+    return render(request, "blog/comment_form.html", {"form": form})
+
+
+def comment_delete(request, post_pk, pk):
     pass

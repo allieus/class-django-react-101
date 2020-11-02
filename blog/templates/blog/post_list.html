@@ -7,6 +7,13 @@
 
 <ul>
   {% for post in post_list %}
-  <li>{{ post.title }}</li>
+  <li>
+    {# TODO: URL Reverse 기능을 활용해서 URL 문자열을 완성해야 합니다. #}
+    <a href="/blog/{{ post.pk }}/"> {{ post.title }} </a>
+  </li>
   {% endfor %}
 </ul>
+
+<hr />
+
+<a href="/blog/new/">Post New</a>

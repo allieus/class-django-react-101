@@ -1,5 +1,5 @@
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.http import HttpResponse, Http404
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Post
 from .forms import PostForm
 
@@ -19,7 +19,7 @@ def post_new(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect("/blog/")
+            return redirect("/blog/")  # TODO: URL Reverse
     else:  # GET 요청
         form = PostForm()
 
@@ -27,7 +27,17 @@ def post_new(request):
 
 
 def post_detail(request, pk):
-    pass
+    # id => Primary Key
+    # pk => Primary Key에 대한 alias
+    # try:
+    #     post = Post.objects.get(
+    #         pk=pk
+    #     )  # Post.DoesNotExist, Post.MultipleObjectsReturned
+    # except Post.DoesNotExist:
+    #     raise Http404
+
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, "blog/post_detail.html", {"post": post})
 
 
 def post_edit(request, pk):

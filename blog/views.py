@@ -55,4 +55,13 @@ def post_edit(request, pk):
 
 
 def post_delete(request, pk):
-    pass
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        # post.title = "삭제된 포스팅"
+        # post.content = ""
+        # post.save()
+        post.delete()
+        return redirect("/blog/")  # TODO: URL Reverse
+    else:
+        pass
+    return render(request, "blog/post_confirm_delete.html", {"post": post})

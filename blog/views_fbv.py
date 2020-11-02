@@ -100,4 +100,8 @@ def comment_edit(request, post_pk, pk):
 
 
 def comment_delete(request, post_pk, pk):
-    pass
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.method == "POST":
+        comment.delete()
+        return redirect(f"/blog/{post_pk}/")  # TODO: URL Reverse
+    return render(request, "blog/comment_confirm_delete.html", {"comment": comment})

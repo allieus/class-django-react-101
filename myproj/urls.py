@@ -7,6 +7,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("blog/", include("blog.urls")),
     path("", RedirectView.as_view(url="/blog/")),
+    path("api-auth/", include("rest_framework.urls")),
 ]
 
 if settings.DEBUG:

@@ -12,6 +12,24 @@
             <a href="/blog/{{ post.pk }}/comments/new/" class="btn btn-primary"> New Comment </a>
             <a href="/blog/{{ post.pk }}/edit/" class="btn btn-primary"> Edit </a>
             <a href="/blog/{{ post.pk }}/delete/" class="btn btn-danger"> Delete </a>
+
+            <hr/>
+
+            {% for comment in post.comment_set.all %}
+                <div>
+                    {{ comment.message }}
+                    &dash;
+                    <strong>
+                        {{ comment.author_name }}
+                    </strong>
+                    <small>
+                        Last updated
+                        {{ comment.updated_at|timesince }}
+                        ago
+                    </small>
+                </div>
+            {% endfor %}
+
         </div>
         <div class="card-footer">
             <small class="text-muted">

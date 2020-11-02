@@ -18,10 +18,16 @@ class Post(TimestampModel):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['-id']
+
 
 class Comment(TimestampModel):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)#, related_name='comment_set')
     author_name = models.CharField(max_length=20)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-id']

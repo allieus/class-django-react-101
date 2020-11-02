@@ -1,9 +1,25 @@
-<h1>Post: {{ post.title }}</h1>
+{% extends "blog/layout.html" %}
 
-{{ post.content|linebreaks }}
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            {{ post.title }}
+        </div>
+        <div class="card-body">
+            {{ post.content|linebreaks }}
 
-<hr />
+            {# TODO: URL Reverse #}
+            <a href="/blog/{{ post.pk }}/edit/" class="btn btn-primary"> Edit </a>
+            <a href="/blog/{{ post.pk }}/delete/" class="btn btn-danger"> Delete </a>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">
+                Last updated
+                {{ post.updated_at|timesince }}
+                ago
+            </small>
+        </div>
+    </div>
 
-{# TODO: URL Reverse #}
-<a href="/blog/{{ post.pk }}/edit/"> Edit </a>
-<a href="/blog/{{ post.pk }}/delete/"> Delete </a>
+
+{% endblock %}

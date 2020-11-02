@@ -1,19 +1,20 @@
-<h1>Post List</h1>
+{% extends "blog/layout.html" %}
 
-<form action="">
-  <input type="text" name="q" value="{{ request.GET.q }}" />
-  <input type="submit" value="Search" />
-</form>
+{% block content %}
+  <form action="">
+    <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="Search ..." />
+  </form>
 
-<ul>
-  {% for post in post_list %}
-  <li>
-    {# TODO: URL Reverse 기능을 활용해서 URL 문자열을 완성해야 합니다. #}
-    <a href="/blog/{{ post.pk }}/"> {{ post.title }} </a>
-  </li>
-  {% endfor %}
-</ul>
+  <ul>
+    {% for post in post_list %}
+    <li>
+      {# TODO: URL Reverse 기능을 활용해서 URL 문자열을 완성해야 합니다. #}
+      <a href="/blog/{{ post.pk }}/"> {{ post.title }} </a>
+    </li>
+    {% endfor %}
+  </ul>
 
-<hr />
+  <hr />
 
-<a href="/blog/new/">Post New</a>
+  <a href="/blog/new/" class="btn btn-primary">Post New</a>
+{% endblock %}

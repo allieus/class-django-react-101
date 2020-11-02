@@ -1,7 +1,7 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Post
-from .forms import PostForm
+from .forms import PostForm, PostEditForm
 
 
 def post_list(request):
@@ -41,7 +41,17 @@ def post_detail(request, pk):
 
 
 def post_edit(request, pk):
-    pass
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == "POST":
+        form = PostEditForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect("/blog/")  # TODO: URL Reverse
+    else:  # GET 요청
+        form = PostEditForm(instance=post)
+
+    return render(request, "blog/post_form.html", {"form": form, "post": post})
 
 
 def post_delete(request, pk):

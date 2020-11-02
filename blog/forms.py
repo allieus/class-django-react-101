@@ -10,3 +10,9 @@ class PostForm(forms.ModelForm):
     # author_name = forms.CharField()
     # title = forms.CharField()
     # content = forms.CharField(widget=forms.Textarea)
+
+
+class PostEditForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ["content"]

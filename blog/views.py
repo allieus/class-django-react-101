@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import Post
+from .forms import PostForm
 
 
 def post_list(request):
@@ -14,7 +15,15 @@ def post_list(request):
 
 
 def post_new(request):
-    pass
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("/blog/")
+    else:  # GET 요청
+        form = PostForm()
+
+    return render(request, "blog/post_form.html", {"form": form})
 
 
 def post_detail(request, pk):

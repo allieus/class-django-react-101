@@ -1,7 +1,7 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Post
-from .forms import PostForm, PostEditForm
+from .forms import PostForm, PostEditForm, CommentForm
 
 
 def post_list(request):
@@ -65,3 +65,28 @@ def post_delete(request, pk):
     else:
         pass
     return render(request, "blog/post_confirm_delete.html", {"post": post})
+
+
+# /blog/100/comments/new/
+def comment_new(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+
+    if request.method == "POST":
+        form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            # comment.ip = "..."
+            comment.save()
+            return redirect(f"/blog/{post_pk}")  # TODO: URL Reverse
+    else:  # GET 요청
+        form = CommentForm()
+
+    return render(request, "blog/comment_form.html", {"form": form})
+
+
+def comment_edit(request, post_pk):
+    pass
+
+def comment_delete(request, post_pk):
+    pass

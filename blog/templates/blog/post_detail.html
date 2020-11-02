@@ -9,6 +9,7 @@
             {{ post.content|linebreaks }}
 
             {# TODO: URL Reverse #}
+            <a href="/blog/{{ post.pk }}/comments/new/" class="btn btn-primary"> New Comment </a>
             <a href="/blog/{{ post.pk }}/edit/" class="btn btn-primary"> Edit </a>
             <a href="/blog/{{ post.pk }}/delete/" class="btn btn-danger"> Delete </a>
         </div>
